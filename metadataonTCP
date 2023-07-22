@@ -1,0 +1,32 @@
+# Ustawienia
+$serverIP = "localhost"   # Zmień "adres_serwera" na adres IP serwera docelowego
+$serverPort = 9002
+
+# Tekst do wysłania
+$textToSend = "Name of your show"
+
+# Konwertowanie tekstu na bajty (UTF-8)
+$byteData = [System.Text.Encoding]::UTF8.GetBytes($textToSend)
+
+try {
+    # Tworzenie obiektu TcpClient
+    $tcpClient = New-Object System.Net.Sockets.TcpClient
+
+    # Nawiązanie połączenia z serwerem
+    $tcpClient.Connect($serverIP, $serverPort)
+
+    # Uzyskanie strumienia do wysyłania danych
+    $stream = $tcpClient.GetStream()
+
+    # Wysłanie danych
+    $stream.Write($byteData, 0, $byteData.Length)
+
+    # Zamknięcie strumienia i połączenia
+    $stream.Close()
+    $tcpClient.Close()
+
+    Write-Host "Wiadomość została wysłana na port TCP 9002."
+}
+catch {
+    Write-Host "Błąd podczas wysyłania wiadomości: $_.Exception.Message"
+}
