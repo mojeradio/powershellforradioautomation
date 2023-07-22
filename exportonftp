@@ -1,0 +1,30 @@
+# Ścieżka do lokalnego pliku, który chcemy przesłać
+$localFilePath = "C:\xxx"
+
+# Adres serwera FTP
+$ftpServer = "ftp://xx.xx"
+
+# Dane logowania do serwera FTP
+$ftpUsername = "username"
+$ftpPassword = "password"  # Zastąp tym miejscem swoje hasło dla użytkownika mojeradio
+
+# Docelowa ścieżka na serwerze FTP
+$ftpDestinationFolder = "/xxx/"
+
+# Tworzenie obiektu WebClient
+$webClient = New-Object System.Net.WebClient
+
+# Ustawienie danych logowania do serwera FTP
+$webClient.Credentials = New-Object System.Net.NetworkCredential($ftpUsername, $ftpPassword)
+
+try {
+    # Przesyłanie pliku na serwer FTP
+    $webClient.UploadFile("$ftpServer$ftpDestinationFolder" + (Get-Item $localFilePath).Name, $localFilePath)
+    
+    Write-Host "Plik został przesłany na serwer FTP."
+} catch {
+    Write-Host "Wystąpił błąd podczas przesyłania pliku na serwer FTP: $_.Exception.Message"
+} finally {
+    # Zwolnij zasoby WebClient
+    $webClient.Dispose()
+}
