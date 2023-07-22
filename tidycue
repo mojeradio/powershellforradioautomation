@@ -1,5 +1,5 @@
 # Paths to folders
-$folders = @("C:\xx\xx", "C:\xx\xx")
+$folders = @("C:\xx\xx", "C:\yy\yy")
 
 # Loop through folders
 foreach ($folder in $folders) {
