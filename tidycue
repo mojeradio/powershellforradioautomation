@@ -1,22 +1,23 @@
-# Ścieżki do folderów
+# Paths to folders
+$folders = @("C:\xx\xx", "C:\xx\xx")
 $folders = @("C:\xx\xx", "C:\yy\yy")
 
-# Pętla przez foldery
+# Loop through folders
 foreach ($folder in $folders) {
-    # Pobranie wszystkich plików .cue w folderze
+    # Get all .cue files in the folder
     $cueFiles = Get-ChildItem -Path $folder -Filter "*.cue" -Recurse
 
-    # Pętla przez pliki .cue
+    # Loop through .cue files
     foreach ($cueFile in $cueFiles) {
-        # Otwórz plik i wczytaj zawartość
+        # Open the file and load its content
         $content = Get-Content $cueFile.FullName
 
-        # Usuń linie zawierające "VT" z zawartości pliku
+        # Remove lines containing "VT" from the file's content
         $content = $content | Where-Object { $_ -notlike "*VT*" }
 
-        # Zapisz zmienioną zawartość do pliku
+        # Save the modified content to the file
         $content | Set-Content $cueFile.FullName
     }
 
-    Write-Host "Usunięto linie zawierające 'VT' z plików .cue w folderze: $folder"
+    Write-Host "Removed lines containing 'VT' from .cue files in folder: $folder"
 }
