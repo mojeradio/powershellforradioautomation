@@ -1,0 +1,23 @@
+# Ścieżki do folderów źródłowego i docelowego
+$sourceFolder = "C:\ProgramData\PlayIt Live\data-backups"
+$destinationFolder = "D:\PlayIt Live"
+
+# Sprawdź, czy folder źródłowy istnieje
+if (!(Test-Path $sourceFolder -PathType Container)) {
+    Write-Host "Folder źródłowy $sourceFolder nie istnieje."
+    Exit
+}
+
+# Sprawdź, czy folder docelowy istnieje
+if (!(Test-Path $destinationFolder -PathType Container)) {
+    Write-Host "Folder docelowy $destinationFolder nie istnieje."
+    Exit
+}
+
+try {
+    # Wykonaj kopię folderu
+    Copy-Item $sourceFolder -Destination $destinationFolder -Recurse -Force
+    Write-Host "Pomyślnie skopiowano folder $sourceFolder do $destinationFolder."
+} catch {
+    Write-Host "Wystąpił błąd podczas kopiowania folderu: $_"
+}
