@@ -1,5 +1,5 @@
 # Ścieżki do folderów
-$folders = @("C:\xx\xx", "C:\xx\xx")
+$folders = @("C:\xx\xx", "C:\yy\yy")
 
 # Pętla przez foldery
 foreach ($folder in $folders) {
