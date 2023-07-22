@@ -1,0 +1,17 @@
+$sourceFolder = "C:\xxx"
+$destinationFolder = "C:\yyy"
+
+# Utwórz folder docelowy, jeśli nie istnieje
+if (-not (Test-Path -Path $destinationFolder)) {
+    New-Item -ItemType Directory -Path $destinationFolder | Out-Null
+}
+
+# Pobierz listę plików z folderu źródłowego
+$files = Get-ChildItem -Path $sourceFolder
+
+# Przenieś pliki do folderu docelowego i zmień ich nazwę
+foreach ($file in $files) {
+    $newName = "NAME OF THE FILE" + $file.Extension
+    $destinationPath = Join-Path -Path $destinationFolder -ChildPath $newName
+    Move-Item -Path $file.FullName -Destination $destinationPath
+}
